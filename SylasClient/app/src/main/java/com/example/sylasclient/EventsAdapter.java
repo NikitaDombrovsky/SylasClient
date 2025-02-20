@@ -1,4 +1,4 @@
-package com.example.sylasclient.Events;
+package com.example.sylasclient;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,9 +6,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.sylasclient.R;
-
 import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
@@ -22,7 +19,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new ViewHolder(view);
     }
 
