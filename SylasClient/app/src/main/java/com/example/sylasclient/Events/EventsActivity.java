@@ -1,4 +1,4 @@
-package com.example.sylasclient;
+package com.example.sylasclient.Events;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sylasclient.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,10 +18,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class EventsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EventsAdapter eventAdapter;
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         eventAdapter = new EventsAdapter(events);
         recyclerView.setAdapter(eventAdapter);
 
-        //new FetchEventsTask().execute("http://10.0.2.2:4444/news");
-         new FetchEventsTask().execute("http://10.0.2.2:4444/events");
+        // TODO 10.0.2.2 потому что локалхост родительской машины
+        new FetchEventsTask().execute("http://10.0.2.2:4444/events");
     }
 
     private class FetchEventsTask extends AsyncTask<String, Void, String> {
@@ -49,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
             StringBuilder result = new StringBuilder();
             HttpURLConnection urlConnection = null;
             try {
-                // Глупо, но можно проще
                 URL url = new URL(urls[0]);
+                // Или просто
                 // URL url1 = new URL("http://10.0.2.2:4444/events");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 // Это просто придется запомнить
+                // TODO Наведи на HttpURLConnection и листни вниз документацию
                 BufferedReader reader = new BufferedReader(new InputStreamReader(
                         urlConnection.getInputStream())
                 );
@@ -64,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 reader.close();
             } catch (Exception e) {
-                Log.e("ERROR", e.getLocalizedMessage());
                 e.printStackTrace();
             } finally {
                 if (urlConnection != null) {
