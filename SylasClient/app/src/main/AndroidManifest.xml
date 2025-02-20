@@ -14,12 +14,20 @@
         android:theme="@style/Theme.SylasClient"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".Event.EventActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".News.NewsActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
             </intent-filter>
         </activity>
     </application>
