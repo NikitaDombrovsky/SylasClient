@@ -4,8 +4,8 @@
 - [x] Модуль APP - Работа с HttpURLConnection (Picasso)
     - [x] News
     - [x] Events
-- [ ] Модуль OkHttp (OkHttp, GSON, Mochi)
-    - [ ] News
+- [x] Модуль OkHttp (OkHttp, GSON, Mochi, DOM, Picasso)
+    - [x] News
     - [x] Events
 - [ ] Модуль Retrofit
     - [ ] News

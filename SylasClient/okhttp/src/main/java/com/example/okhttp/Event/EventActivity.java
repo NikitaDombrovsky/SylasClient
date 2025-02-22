@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.okhttp.R;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.moshi.JsonAdapter;
@@ -71,11 +73,13 @@ public class EventActivity extends AppCompatActivity {
             try {
                 // Можно упростить дело с помощью библиотек
                 // GSON
-                events.addAll(fromJSON_GSON(result));
+                events.addAll(toList_GSON(result));
                 // MOCHI
-                // events.addAll(fromJSON_Mochi(result));
+                //events.addAll(toList_Mochi(result));
+                // Jackson
+                //events.addAll(toList_Jackson(result));
                 // Или без
-                // events.addAll(fromJSON(result));
+                //events.addAll(toList(result));
                 eventAdapter.notifyDataSetChanged();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -84,7 +88,7 @@ public class EventActivity extends AppCompatActivity {
     }
 
 
-    private List<Event> fromJSON_GSON(String result) {
+    private List<Event> toList_GSON(String result) {
         try {
             Gson gson = new Gson();
             // Это придется просто запомнить
@@ -97,7 +101,7 @@ public class EventActivity extends AppCompatActivity {
         }
     }
 
-    private List<Event> fromJSON_Mochi(String result) {
+    private List<Event> toList_Mochi(String result) {
         try {
             // Вариант на Mochi
             Moshi moshi = new Moshi.Builder()
@@ -113,7 +117,7 @@ public class EventActivity extends AppCompatActivity {
         }
     }
 
-    private List<Event> fromJSON(String result) {
+    private List<Event> toList(String result) {
         try {
             List<Event> newEvents = new ArrayList<>();
             // Разбить результат на элементы по ключам
@@ -127,6 +131,19 @@ public class EventActivity extends AppCompatActivity {
                 event.setAuthor(jsonObject.getString("author"));
                 newEvents.add(event);
             }
+            return newEvents;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    private List<Event> toList_Jackson(String result) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            // Парсинг JSON в список объектов Event
+            List<Event> newEvents = objectMapper.readValue(result, new TypeReference<List<Event>>() {
+            });
             return newEvents;
         } catch (Exception e) {
             e.printStackTrace();
